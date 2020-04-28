@@ -30,7 +30,6 @@ public class MainActivity extends AppCompatActivity {
     private RequestQueue mQueue;
     private ImageView icon;
     private Button buttonParse;
-    private JsonArrayRequest request;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
