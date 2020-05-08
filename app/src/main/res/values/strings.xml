@@ -18,4 +18,9 @@
 
     <string name="refresh">Refresh</string>
     <string name="city_name">San Francisco</string>
+
+    <string name="app_name">Forecast</string>
+    <string name="na"></string>
+    <string name="degrees_unit">°</string>
+
 </resources>
