@@ -16,8 +16,8 @@ public class Current {
     private String windDir;
     private long pressureMB;
     private double pressureIn;
-    private double precipMm;
-    private double precipIn;
+    private long precipMm;
+    private long precipIn;
     private long humidity;
     private long cloud;
     private double feelslikeC;
@@ -25,7 +25,7 @@ public class Current {
     private long visKM;
     private long visMiles;
     private long uv;
-    private double gustMph;
+    private long gustMph;
     private double gustKph;
 
     @JsonProperty("last_updated_epoch")
@@ -89,14 +89,14 @@ public class Current {
     public void setPressureIn(double value) { this.pressureIn = value; }
 
     @JsonProperty("precip_mm")
-    public double getPrecipMm() { return precipMm; }
+    public long getPrecipMm() { return precipMm; }
     @JsonProperty("precip_mm")
-    public void setPrecipMm(double value) { this.precipMm = value; }
+    public void setPrecipMm(long value) { this.precipMm = value; }
 
     @JsonProperty("precip_in")
-    public double getPrecipIn() { return precipIn; }
+    public long getPrecipIn() { return precipIn; }
     @JsonProperty("precip_in")
-    public void setPrecipIn(double value) { this.precipIn = value; }
+    public void setPrecipIn(long value) { this.precipIn = value; }
 
     @JsonProperty("humidity")
     public long getHumidity() { return humidity; }
@@ -134,9 +134,9 @@ public class Current {
     public void setUv(long value) { this.uv = value; }
 
     @JsonProperty("gust_mph")
-    public double getGustMph() { return gustMph; }
+    public long getGustMph() { return gustMph; }
     @JsonProperty("gust_mph")
-    public void setGustMph(double value) { this.gustMph = value; }
+    public void setGustMph(long value) { this.gustMph = value; }
 
     @JsonProperty("gust_kph")
     public double getGustKph() { return gustKph; }

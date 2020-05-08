@@ -3,7 +3,7 @@ package com.example.weather.Weatherapi;
 import java.util.*;
 import com.fasterxml.jackson.annotation.*;
 
-public class Temperatures {
+public class Temperature {
     private Location location;
     private Current current;
     private Forecast forecast;

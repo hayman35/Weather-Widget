@@ -1,6 +1,7 @@
 package com.example.weather.Weatherapi;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.*;
+import com.fasterxml.jackson.annotation.*;
 
 public class Location {
     private String name;

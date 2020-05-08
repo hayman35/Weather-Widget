@@ -1,20 +1,30 @@
+// To use this code, add the following Maven dependency to your project:
+//
+//     com.fasterxml.jackson.core : jackson-databind : 2.9.0
+//
+// Import this package:
+//
+//     import com.example.weather.Weatherapi.Converter;
+//
+// Then you can deserialize a JSON string with
+//
+//     Temperature data = Converter.fromJsonString(jsonString);
+
 package com.example.weather.Weatherapi;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectReader;
-import com.fasterxml.jackson.databind.ObjectWriter;
-
+import java.util.*;
 import java.io.IOException;
+import com.fasterxml.jackson.databind.*;
+import com.fasterxml.jackson.core.JsonProcessingException;
 
 public class Converter {
     // Serialize/deserialize helpers
 
-    public static Temperatures fromJsonString(String json) throws IOException {
+    public static Temperature fromJsonString(String json) throws IOException {
         return getObjectReader().readValue(json);
     }
 
-    public static String toJsonString(Temperatures obj) throws JsonProcessingException {
+    public static String toJsonString(Temperature obj) throws JsonProcessingException {
         return getObjectWriter().writeValueAsString(obj);
     }
 
@@ -23,8 +33,8 @@ public class Converter {
 
     private static void instantiateMapper() {
         ObjectMapper mapper = new ObjectMapper();
-        reader = mapper.reader(Temperatures.class);
-        writer = mapper.writerFor(Temperatures.class);
+        reader = mapper.reader(Temperature.class);
+        writer = mapper.writerFor(Temperature.class);
     }
 
     private static ObjectReader getObjectReader() {

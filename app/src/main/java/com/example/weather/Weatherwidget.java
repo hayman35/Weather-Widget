@@ -4,20 +4,28 @@ import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.widget.RemoteViews;
 
 import com.example.weather.Weatherapi.Converter;
-import com.example.weather.Weatherapi.Temperatures;
+import com.example.weather.Weatherapi.Forecast;
+import com.example.weather.Weatherapi.Forecastday;
+import com.example.weather.Weatherapi.Temperature;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 import org.apache.commons.io.IOUtils;
+
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.net.URL;
-import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 import java.util.concurrent.ExecutionException;
 
 
@@ -25,7 +33,7 @@ import java.util.concurrent.ExecutionException;
  * Implementation of App Widget functionality.
  */
 public class Weatherwidget extends AppWidgetProvider {
-    Temperatures data;
+    Temperature data;
 
     public void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                 int appWidgetId) {
@@ -36,8 +44,8 @@ public class Weatherwidget extends AppWidgetProvider {
         apiCall.execute();
         try {
             data = apiCall.get();
-            long code = data.getCurrent().getCondition().getCode();
-            views.setTextViewText(R.id.daily_temp_1,""+data.getCurrent().getFeelslikeC());
+           // long code = data.getCurrent().getCondition().getCode();
+          //  views.setTextViewText(R.id.daily_temp_1,""+data.getCurrent().getFeelslikeC());
             views.setImageViewResource(R.id.daily_img_1,R.drawable.weather_white_01d);
             views.setImageViewResource(R.id.daily_img_2,R.drawable.weather_white_02d);
             views.setImageViewResource(R.id.daily_img_3,R.drawable.weather_white_03d);
@@ -73,9 +81,9 @@ public class Weatherwidget extends AppWidgetProvider {
         // Enter relevant functionality for when the last widget is disabled
     }
 
-    private class ApiCall extends AsyncTask<Temperatures, String, Temperatures> {
+    private class ApiCall extends AsyncTask<Temperature, String, Temperature> {
         @Override
-        protected Temperatures doInBackground(Temperatures... temperatures) {
+        protected Temperature doInBackground(Temperature... temperature) {
             try {
                 JSONObject json = new JSONObject(IOUtils.toString(new URL("https://api.weatherapi.com/v1/forecast.json?key=e39229688fd34bada27231316202704&q=l4g3c7&days=1"), StandardCharsets.UTF_8));
                 data = Converter.fromJsonString(json.toString());
@@ -84,13 +92,12 @@ public class Weatherwidget extends AppWidgetProvider {
             }
             return data;
         }
-        protected void onPostExecute(Temperatures temperatures) {
-            data = temperatures;
+        protected void onPostExecute(Temperature temperature) {
+            data = temperature;
 
         }
 
     }
-
 
 
 

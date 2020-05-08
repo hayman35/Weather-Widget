@@ -7,14 +7,14 @@ public class Day {
     private double maxtempC;
     private double maxtempF;
     private double mintempC;
-    private double mintempF;
+    private long mintempF;
     private double avgtempC;
     private double avgtempF;
     private double maxwindMph;
     private double maxwindKph;
-    private double totalprecipMm;
-    private double totalprecipIn;
-    private double avgvisKM;
+    private long totalprecipMm;
+    private long totalprecipIn;
+    private long avgvisKM;
     private long avgvisMiles;
     private long avghumidity;
     private Condition condition;
@@ -36,9 +36,9 @@ public class Day {
     public void setMintempC(double value) { this.mintempC = value; }
 
     @JsonProperty("mintemp_f")
-    public double getMintempF() { return mintempF; }
+    public long getMintempF() { return mintempF; }
     @JsonProperty("mintemp_f")
-    public void setMintempF(double value) { this.mintempF = value; }
+    public void setMintempF(long value) { this.mintempF = value; }
 
     @JsonProperty("avgtemp_c")
     public double getAvgtempC() { return avgtempC; }
@@ -61,19 +61,19 @@ public class Day {
     public void setMaxwindKph(double value) { this.maxwindKph = value; }
 
     @JsonProperty("totalprecip_mm")
-    public double getTotalprecipMm() { return totalprecipMm; }
+    public long getTotalprecipMm() { return totalprecipMm; }
     @JsonProperty("totalprecip_mm")
-    public void setTotalprecipMm(double value) { this.totalprecipMm = value; }
+    public void setTotalprecipMm(long value) { this.totalprecipMm = value; }
 
     @JsonProperty("totalprecip_in")
-    public double getTotalprecipIn() { return totalprecipIn; }
+    public long getTotalprecipIn() { return totalprecipIn; }
     @JsonProperty("totalprecip_in")
-    public void setTotalprecipIn(double value) { this.totalprecipIn = value; }
+    public void setTotalprecipIn(long value) { this.totalprecipIn = value; }
 
     @JsonProperty("avgvis_km")
-    public double getAvgvisKM() { return avgvisKM; }
+    public long getAvgvisKM() { return avgvisKM; }
     @JsonProperty("avgvis_km")
-    public void setAvgvisKM(double value) { this.avgvisKM = value; }
+    public void setAvgvisKM(long value) { this.avgvisKM = value; }
 
     @JsonProperty("avgvis_miles")
     public long getAvgvisMiles() { return avgvisMiles; }
