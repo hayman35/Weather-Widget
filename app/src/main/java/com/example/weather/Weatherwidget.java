@@ -9,12 +9,14 @@ import android.widget.ImageView;
 import android.widget.RemoteViews;
 import android.widget.TextView;
 
+import com.example.weather.Weatherapi.Converter;
 import com.example.weather.Weatherapi.Temperatures;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.URL;
+
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.core.MediaType;
+
 
 /**
  * Implementation of App Widget functionality.
@@ -31,7 +33,12 @@ public class Weatherwidget extends AppWidgetProvider {
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
-
+        String json = ClientBuilder.newClient().target("https://api.weatherapi.com/v1/forecast.json?key=e39229688fd34bada27231316202704&q=l4g3c7&days=1").request().accept(MediaType.APPLICATION_JSON).get(String.class);
+        try {
+            Temperatures data = Converter.fromJsonString(json);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         // There may be multiple widgets active, so update all of them
         for (int appWidgetId : appWidgetIds) {
             updateAppWidget(context, appWidgetManager, appWidgetId);
@@ -40,16 +47,15 @@ public class Weatherwidget extends AppWidgetProvider {
 
     @Override
     public void onEnabled(Context context) {
-        API api = new API();
-        api.doInBackground();
-        Temperatures data = api.getData();
-        System.out.println("HEY" + data.getCurrent().getFeelslikeC());
+
     }
 
     @Override
     public void onDisabled(Context context) {
         // Enter relevant functionality for when the last widget is disabled
     }
+
+
 
 
 

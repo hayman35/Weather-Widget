@@ -19,6 +19,7 @@ android {
     }
 }
 
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'androidx.appcompat:appcompat:1.1.0'
@@ -26,6 +27,8 @@ dependencies {
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.9.0'
     implementation 'com.facebook.fresco:fresco:2.2.0'
     implementation 'com.squareup.picasso:picasso:2.71828'
+   // implementation group: 'org.glassfish.jersey.core', name: 'jersey-client', version: '2.25.1'
+
 
 
     testImplementation 'junit:junit:4.12'
