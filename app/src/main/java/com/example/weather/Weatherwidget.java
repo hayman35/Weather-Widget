@@ -30,8 +30,12 @@ import org.json.JSONObject;
 
 
 import java.net.URL;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.format.TextStyle;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 import java.util.concurrent.ExecutionException;
 
 
@@ -44,6 +48,7 @@ public class Weatherwidget extends AppWidgetProvider {
     ApiCall apiCall = new ApiCall();
 
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                 int appWidgetId) throws ExecutionException, InterruptedException {
         // Construct the RemoteViews object
@@ -54,7 +59,7 @@ public class Weatherwidget extends AppWidgetProvider {
         data = apiCall.get();
 
         // Current
-        views.setTextViewText(R.id.current_temp,""+data.getCurrent().getTempC());
+        views.setTextViewText(R.id.current_temp,(int)data.getCurrent().getTempC()+ "\u00B0");
         views.setTextViewText(R.id.current_location,""+data.getLocation().getName());
         url = data.getCurrent().getCondition().getIcon(); // get the url from data
         // set the widget target for the picture
@@ -71,12 +76,18 @@ public class Weatherwidget extends AppWidgetProvider {
         Glide.with(context.getApplicationContext())
                 .asBitmap()
                 .load("https:"+url)
-                .apply(options)
+                //.apply(options)
+                .apply(new RequestOptions().override(600, 200))
                 .into(awt);
 
         // Day 1
-        views.setTextViewText(R.id.daily_temp_1,""+data.getForecast().getForecastday()[0].getDay().getAvgtempC());
-        //views.setTextViewText(R.id.daily_time_1,);
+        LocalDate localDate = LocalDate.parse(data.getForecast().getForecastday()[0].getDate());
+        DayOfWeek dayOfWeek = localDate.getDayOfWeek();
+        String day = dayOfWeek.getDisplayName(TextStyle.SHORT, Locale.ENGLISH);
+        views.setTextViewText(R.id.daily_temp_1,""+(int)data.getForecast().getForecastday()[0].getDay().getAvgtempC()+ "\u00B0");
+        views.setTextViewText(R.id.daily_time_1,""+day);
+
+
         url = data.getForecast().getForecastday()[0].getDay().getCondition().getIcon(); // get the url from data
         // set the widget target for the picture
          awt = new AppWidgetTarget(context, R.id.daily_img_1, views, appWidgetId) {
@@ -92,11 +103,16 @@ public class Weatherwidget extends AppWidgetProvider {
         Glide.with(context.getApplicationContext())
                 .asBitmap()
                 .load("https:"+url)
+                .apply(new RequestOptions().override(600, 200))
                 .apply(options)
                 .into(awt);
 
         // Day 2
-        views.setTextViewText(R.id.daily_temp_2,""+data.getForecast().getForecastday()[1].getDay().getAvgtempC());
+        localDate = LocalDate.parse(data.getForecast().getForecastday()[1].getDate());
+        dayOfWeek = localDate.getDayOfWeek();
+        day = dayOfWeek.getDisplayName(TextStyle.SHORT, Locale.ENGLISH);
+        views.setTextViewText(R.id.daily_time_2,""+day);
+        views.setTextViewText(R.id.daily_temp_2,""+(int)data.getForecast().getForecastday()[1].getDay().getAvgtempC()+ "\u00B0");
         url = data.getForecast().getForecastday()[1].getDay().getCondition().getIcon(); // get the url from data
         // set the widget target for the picture
         awt = new AppWidgetTarget(context, R.id.daily_img_2, views, appWidgetId) {
@@ -118,7 +134,11 @@ public class Weatherwidget extends AppWidgetProvider {
 
 
         // Day 3
-        views.setTextViewText(R.id.daily_temp_3,""+data.getForecast().getForecastday()[2].getDay().getAvgtempC());
+        localDate = LocalDate.parse(data.getForecast().getForecastday()[2].getDate());
+        dayOfWeek = localDate.getDayOfWeek();
+        day = dayOfWeek.getDisplayName(TextStyle.SHORT, Locale.ENGLISH);
+        views.setTextViewText(R.id.daily_time_3,""+day);
+        views.setTextViewText(R.id.daily_temp_3,""+(int)data.getForecast().getForecastday()[2].getDay().getAvgtempC()+ "\u00B0" );
         url = data.getForecast().getForecastday()[2].getDay().getCondition().getIcon(); // get the url from data
         // set the widget target for the picture
         awt = new AppWidgetTarget(context, R.id.daily_img_3, views, appWidgetId) {
@@ -143,6 +163,7 @@ public class Weatherwidget extends AppWidgetProvider {
 
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
 

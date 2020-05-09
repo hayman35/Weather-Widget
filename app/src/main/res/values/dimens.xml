@@ -11,8 +11,8 @@
      limitations under the License.
 -->
 <resources>
-    <dimen name="widget_margin_top">10dp</dimen>
-    <dimen name="widget_margin_bottom">10dp</dimen>
-    <dimen name="widget_margin_left">5dp</dimen>
-    <dimen name="widget_margin_right">5dp</dimen>
+    <dimen name="widget_margin_top">20dp</dimen>
+    <dimen name="widget_margin_bottom">20dp</dimen>
+    <dimen name="widget_margin_left">20dp</dimen>
+    <dimen name="widget_margin_right">20dp</dimen>
 </resources>
